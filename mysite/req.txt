@@ -1,0 +1,17 @@
+Django
+django-cors-headers
+django-rest-swagger
+djangorestframework
+djangorestframework-jsonapi
+djangorestframework-jwt
+djoser
+certifi
+chardet
+django-feedparser
+django-pdb
+feedparser
+idna
+pytz
+requests
+six
+urllib3

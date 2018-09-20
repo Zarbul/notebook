@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+    <head>
+        {% block title %}<title>Записная книжка</title>{% endblock %}
+
+        <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+	    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+        
+	    <link href="{% static 'css/main.css' %}" rel="stylesheet" type='text/css'>
+        <link href="{% static 'css/foundation.css' %}" rel="stylesheet" type='text/css'>
+        <link href="{% static 'css/foundation.min.css' %}" rel="stylesheet" type='text/css'>
+
+    </head>
+
+
+    <body>
+
+        <div id="topbar-responsive" class="topbar-responsive-links">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu simple vertical medium-horizontal">
+                        <li><a href="/">Прикольная картинка, ведущая на главную</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'home' %}">Записки</a> </li>
+                        {% endif %}
+                    </ul>
+                </div>
+{#          кнопки для авторизации#}
+                {% block auth %}
+                    {% include 'note/auth.html' %}
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <div class="container">
+                {% if user.is_authenticated %}
+
+                    {% block form %}{% endblock %}
+
+                    {% block content %}
+
+                        {% include 'note/rss.html' %}
+
+                    {% endblock %}
+
+                {% else %}
+                    {% block login %}
+                        <section id="page-content">
+                            <div id="introduction" class="row">
+                                <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 columns">
+                                    <h2 class="text-center">Записная книжка</h2>
+                                    <p>Здесь можно будет сохранять избранные ссылки, но для начала авторизуйте или почитайте новости</p>
+                                </div>
+                            </div>
+
+                        {% include 'note/rss.html' %}
+
+                        </section>
+                    {% endblock %}
+                {% endif %}
+
+        </div>
+
+    </body>
+
+</html>

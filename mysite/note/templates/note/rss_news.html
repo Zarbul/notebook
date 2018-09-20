@@ -1,0 +1,14 @@
+{#{% extends 'base.html' %}#}
+
+{#{% block rss %}#}
+
+
+
+    {% for dic in posts %}
+        <div class="small-12 medium-6 large-3 columns">
+            <h5><a href="{{ dic.link }}">{{ dic.title }}</a></h5>
+            <p>{{ dic.summary }}</p>
+        </div>
+    {% endfor %}
+
+{#{% endblock %}#}

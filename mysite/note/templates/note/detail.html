@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{#           <a class="button small" href="{% url 'edit' id=instance.id %}"><span>Редактировать</span></a>#}
+{#           <a class="button small" href="{% url 'delete' id=instance.id %}"><span>Удалить</span></a>#}
+           <h4>{{name}}</h4>
+
+           <p><a href="{{instance.link}}">{{instance.link}}</a> </p>
+
+           <p><strong>Описание:</strong> <br>
+               {{instance.text}}
+           </p>
+
+{#           <p>Отдел: {{instance.otdel}}</p>#}
+
+
+{% endblock %}

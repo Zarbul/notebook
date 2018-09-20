@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block paginator %}
+
+    <div class="pagination">
+
+        {% if pages.has_previous %}
+            <a href="?page=1"> << </a>
+            <a href="?page={{ pages.previous_page_number }}"> < </a>
+        {% endif %}
+
+        {% for num in pages.paginator.page_range %}
+            {% if pages.number == num %}
+                <strong>{{ num }}</strong>
+{#            {% elif num > pages.number|add:'-3' and num < pages.number|add'3' %}#}
+                {% else %}
+                {{ num }}
+
+            {% endif %}
+        {% endfor %}
+        {% if pages.has_next %}
+            <a href="?page={{ pages.next_page_number }}"> > </a>
+            <a href="?page={{ pages.paginator.num_pages }}"> >> </a>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

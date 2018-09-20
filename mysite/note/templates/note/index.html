@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{#{% include 'note/auth.html' %}#}
+
+{% block form %}
+    <div class="row">
+        <form method="POST" class="post-form">{% csrf_token %}
+            <ul class="menu simple vertical medium-horizontal">
+                {{ form.as_ul }}
+                <li>
+                    <button type="submit" class="add_button">Добавить</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block content %}
+        <h4 class="large-3 large-offset-5 columns">Сохраненные ссылки</h4>
+    {% for i in notes %}
+            {% if i.user == user %}
+                <div class="row">
+                    <ol class="menu simple vertical medium-horizontal large-12 columns">
+                        <li class="large-9 columns"><a href="{% url 'detail' id=i.id %}">{{i.name}} {{ i.link}} ({{ i.create_date }})</a></li>
+{#                        разделить красиво имя и ссылку#}
+{#                        <li class="large-2 columns"><a class="button medium align-right" href="{% url 'edit' id=i.id %}">Редактировать</a></li>#}
+                        <li class="large-2 columns"><a class="button medium " href="{% url 'delete' id=i.id %}">Удалить</a></li>
+                        <hr>
+                    </ol>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+
+
+    <div class="row">
+        <div class="large-5 large-offset-4 columns">
+            <ul class="pagination">
+                {% if notes.has_previous %}
+                    <li class="arrow"><a href="?page=1"> <<< </a></li>
+                    <li class="arrow"><a href="?page={{ notes.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                {% endif %}
+                {% for page in notes.paginator.page_range %}
+                    {% if page == notes.number %}
+                        <li class="current"><a href="?page={{ page }}">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if notes.has_next %}
+                    <li class="arrow"><a href="?page={{ notes.next_page_number }}">&raquo;</a></li>
+                    <li class="arrow"><a href="?page={{ notes.paginator.num_pages }}"> >> </a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

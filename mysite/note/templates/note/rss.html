@@ -1,0 +1,7 @@
+{% load rssview %}
+    <div id="services" class="row">
+        <div class="small-12 columns">
+            <h2 class="text-center">Различные новости</h2>
+        </div>
+        {% pull_feed 'https://news.yandex.ru/index.rss' 8 %}
+    </div>
